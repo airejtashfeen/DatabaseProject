@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+ const { username, password } = req.body;
 
     sql.connect(config, (err) => {
         if (err) {
@@ -30,16 +30,14 @@ app.post('/login', (req, res) => {
             res.status(500).send('Failed to connect to the database');
         } else {
             const request = new sql.Request();
-            request.query(`SELECT * FROM dbo.Users WHERE Username = '${username}' AND Password = '${password}'`, (err, result) => {
+            request.query(`SELECT * FROM dbo.Users WHERE userName = '${username}' AND passwordd = '${password}'`, (err, result) => {
                 if (err) {
                     console.log('Failed to execute SQL query.');
                     res.status(500).send('Failed to execute SQL query');
                 } else {
                     if (result.recordset.length > 0) {
-                        // User is authenticated
-                        res.send('Welcome! Login Successful');
+                        res.send({ filename: './success.html' });
                     } else {
-                        // Invalid credentials
                         res.send('Invalid username or password');
                     }
                 }

@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
- const { username, password } = req.body;
+    const { username, password } = req.body;
 
     sql.connect(config, (err) => {
         if (err) {
@@ -36,14 +36,19 @@ app.post('/login', (req, res) => {
                     res.status(500).send('Failed to execute SQL query');
                 } else {
                     if (result.recordset.length > 0) {
-                        res.send({ filename: './success.html' });
+                        res.send('/success'); // res.redirect('/success');
                     } else {
                         res.send('Invalid username or password');
-                    }
+                    } 
                 }
             });
         }
     });
+});
+
+// Define route for success.html
+app.get('/success', (req, res) => {
+    res.sendFile(__dirname + '/success.html');
 });
 
 app.listen(port, () => {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <link rel="stylesheet" href="/CustomersCSS">
+
+</head>
+<body>
+    <h1>Enter a Customer</h1>
+
+    <div class="container">
+        <!-- Form Element -->
+        <form action="/submitCustomer" method="post">
+            <!-- Input Fields -->
+            <div class="input-group">
+                <label for="customerID">Customer ID:</label>
+                <input type="text" id="customerID" name="customerID" placeholder="Enter value" required>
+                
+                <label for="customerName">Customer Name:</label>
+                <input type="text" id="customerName" name="customerName" placeholder="Enter value" required>
+            </div>
+
+            <div class="input-group">
+                <label for="customerEmail">Customer Email:</label>
+                <input type="email" id="customerEmail" name="customerEmail" placeholder="Enter value" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Enter a valid email address" required>
+                
+                <label for="customerPhone">Customer Phone:</label>
+                <input type="tel" id="customerPhone" name="customerPhone" placeholder="Enter value" pattern="[0-9]{11}" title="Phone number must be 11 digits" required>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="input-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

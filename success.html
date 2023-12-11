@@ -1,23 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Record Management</title>
     <style>
-        body{
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: black;
+            height: 100vh;
         }
-        h1{
-            color: white;
-            margin-top: 20%;
+
+        .options-container {
+            display: flex;
+            justify-content: space-around;
+            width: 400px;
+        }
+
+        .option-box {
+            background-color: #3498db;
+            border: 1px solid #2980b9;
+            padding: 60px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .option-box:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
+
 <body>
-    <h1>Welcome, Logged in successfully!</h1>
+    <div class="options-container">
+        <a href="/addRecord" class="option-box">Add Record</a>
+        <a href="/updateRecord" class="option-box">Update Record</a>
+        <a href="/deleteRecord" class="option-box">Delete Record</a>
+    </div>
+    <script>
+        alert("Logged in successfully!");
+    </script>
 </body>
+
 </html>

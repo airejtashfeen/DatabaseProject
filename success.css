@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: black;
+    background-image: url("/backgroundImage");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+.box {
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    padding: 15px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+#customerBox {
+    background-color: #095b0c;
+    color: #fff;
+}
+
+#productBox {
+    background-color: #0047dd;
+    color: #fff;
+}
+
+#employeeBox {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+#supplierBox {
+    background-color: #9b59b6;
+    color: #fff;
+}
+
+#orderBox {
+    background-color: #f39c12;
+    color: #fff;
+}
+
+a {
+    color: #fff; /* Default color for links */
+    text-decoration: none; /* Remove underline */
+}
+
+a:visited {
+    color: #fff; /* Color for visited links */
+}

@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
+//Check for User
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
@@ -43,6 +44,8 @@ app.post('/login', (req, res) => {
     });
 });
 
+
+//Insertions
 app.post('/submitOrder', (req, res) => {
     const { orderID, customerID, productID, orderDate, orderStatus, orderAddress } = req.body;
 
@@ -52,7 +55,7 @@ app.post('/submitOrder', (req, res) => {
             res.status(500).send('Failed to connect to the database');
         } else {
             const request = new sql.Request();
-            // Insert data into the 'orders' table
+
             request.query(`
                 INSERT INTO orders (orderID, customerID, productID, orderDate, orderStatus, orderAddress)
                 VALUES (${orderID}, ${customerID}, ${productID}, '${orderDate}', '${orderStatus}', '${orderAddress}')
@@ -99,7 +102,6 @@ app.post('/submitCustomer', (req, res) => {
 app.post('/submitProduct', (req, res) => {
     const { productID, productName, productQuantity, productMaterial, productSize, productColor, productPrice } = req.body;
 
-    // Validate product data here if needed
 
     sql.connect(config, (err) => {
         if (err) {
@@ -107,7 +109,7 @@ app.post('/submitProduct', (req, res) => {
             res.status(500).send('Failed to connect to the database');
         } else {
             const request = new sql.Request();
-            // Insert data into the 'products' table
+         
             request.query(`
                 INSERT INTO products (productID, productName, productQuantity, productMaterial, productSize, productColor, productPrice)
                 VALUES (${productID}, '${productName}', ${productQuantity}, '${productMaterial}', ${productSize}, '${productColor}', ${productPrice})
@@ -132,7 +134,7 @@ app.post('/submitSupplier', (req, res) => {
             res.status(500).send('Failed to connect to the database');
         } else {
             const request = new sql.Request();
-            // Insert data into the 'supplier' table
+       
             request.query(`
                 INSERT INTO supplier (supplierID, productID, supplierName, supplierPhone)
                 VALUES (${supplierID}, ${productID}, '${supplierName}', '${supplierPhone}')
@@ -157,7 +159,7 @@ app.post('/submitEmployee', (req, res) => {
             res.status(500).send('Failed to connect to the database');
         } else {
             const request = new sql.Request();
-            // Insert data into the 'employee' table
+         
             request.query(`
                 INSERT INTO employee (employeeID, orderID, employeeName, employeePhone, employeeRole, employeeDepartment)
                 VALUES (${employeeID}, ${orderID}, '${employeeName}', '${employeePhone}', '${employeeRole}', '${employeeDepartment}')
@@ -174,7 +176,7 @@ app.post('/submitEmployee', (req, res) => {
 });
 
 
-
+//UPDATES
 app.post('/updateCustomer', (req, res) => {
     const { customerID, customerName, customerEmail, customerPhone } = req.body;
     
@@ -203,7 +205,7 @@ app.post('/updateCustomer', (req, res) => {
                 updateQuery += `customerPhone = '${customerPhone}', `;
             }
             
-            // Remove the trailing comma and space
+           
             updateQuery = updateQuery.slice(0, -2);
 
             updateQuery += ` WHERE customerID = ${customerID}`;
@@ -256,7 +258,6 @@ app.post('/updateEmployee', (req, res) => {
                 updateQuery += `employeeDepartment = '${employeeDepartment}', `;
             }
 
-            // Remove the trailing comma and space
             updateQuery = updateQuery.slice(0, -2);
 
             updateQuery += ` WHERE employeeID = ${employeeID}`;
@@ -413,7 +414,6 @@ app.post('/updateSupplier', (req, res) => {
                 updateQuery += `supplierPhone = '${supplierPhone}', `;
             }
             
-            // Remove the trailing comma and space
             updateQuery = updateQuery.slice(0, -2);
 
             updateQuery += ` WHERE supplierID = ${supplierID}`;
@@ -492,6 +492,7 @@ app.get('/updateProduct', (req, res) => {
 app.get('/updateSupplier', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/updateSupplier.html');
 });
+
 //Routes for CSS Files
 app.get('/LoginCSS', (req, res) => {
     res.sendFile(__dirname + '/CSS Files/login.css');
@@ -538,6 +539,7 @@ app.get('/SuccessCSS', (req, res) => {
 app.get('/updateProductCSS', (req, res) => {
     res.sendFile(__dirname + '/CSS Files/updateProduct.css');
 });
+
 //Listen 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

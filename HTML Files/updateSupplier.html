@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/UpdateSupplierCSS"> 
+    <title>Update Customer</title>
+</head>
+<body>
+    <h2>Update Supplier</h2>
+    <form action="/updateSupplier" method="POST">
+        <label for="supplierID"> Supplier ID: (required)</label>
+        <input type="text" id="supplierID" name="supplierID" required>
+        <br>
+
+        <label for="productID">Product ID:</label>
+        <input type="text" id="productID" name="productID">
+        <br>
+
+        <label for="supplierName">Supplier Name:</label>
+        <input type="text" id="supplierName" name="supplierName">
+        <br>
+
+        <label for="supplierPhone">Supplier Phone:</label>
+        <input type="text" id="supplierPhone" name="supplierPhone">
+        <br>
+
+        <button type="submit">Update Customer</button>
+    </form>
+</body>
+</html>

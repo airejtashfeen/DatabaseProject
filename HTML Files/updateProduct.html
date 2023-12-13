@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/updateProductCSS">
+    <title>Update Products</title>
+</head>
+<body>
+    <h2>Update Products</h2>
+    <form id="updateProductsForm" action="/updateProduct" method="POST">
+        <label for="productID">Product ID:</label>
+        <input type="text" id="productID" name="productID" required>
+
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" name="productName">
+
+        <label for="productQuantity">Product Quantity:</label>
+        <input type="text" id="productQuantity" name="productQuantity">
+
+        <label for="productMaterial">Product Material:</label>
+        <input type="text" id="productMaterial" name="productMaterial">
+
+        <label for="productSize">Product Size:</label>
+        <input type="text" id="productSize" name="productSize" required>
+
+        <label for="productColor">Product Color:</label>
+        <input type="text" id="productColor" name="productColor">
+
+        <label for="productPrice">Product Price:</label>
+        <input type="text" id="productPrice" name="productPrice" required>
+
+        <button type="submit">Update Product</button>
+    </form>
+</body>
+</html>

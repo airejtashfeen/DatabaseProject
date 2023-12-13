@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/UpdateEmployeeCSS">
+    <title>Update Employee</title>
+</head>
+<body>
+    <h2>Update Employee Information</h2>
+    <form action="/updateEmployee" method="POST">
+        <label for="employeeID">Employee ID:</label>
+        <input type="text" id="employeeID" name="employeeID" required>
+
+        <label for="orderID">Order ID:</label>
+        <input type="text" id="orderID" name="orderID">
+
+        <label for="employeeName">Employee Name:</label>
+        <input type="text" id="employeeName" name="employeeName">
+
+        <label for="employeePhone">Employee Phone:</label>
+        <input type="text" id="employeePhone" name="employeePhone">
+
+        <label for="employeeRole">Employee Role:</label>
+        <input type="text" id="employeeRole" name="employeeRole" >
+
+        <label for="employeeDepartment">Employee Department:</label>
+        <input type="text" id="employeeDepartment" name="employeeDepartment" >
+
+        <button type="submit">Update Employee</button>
+    </form>
+</body>
+</html>

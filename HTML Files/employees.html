@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <link rel="stylesheet" href="/EmployeeCSS">
+</head>
+
+<body>
+    <div id="employeeForm">
+        <h1>Add Employee</h1>
+
+        <!-- Employee Form -->
+        <form action="/submitEmployee" method="post">
+            <!-- Employee ID -->
+            <div class="input-group">
+                <label for="employeeID">Employee ID:</label>
+                <input type="text" id="employeeID" name="employeeID" placeholder="Enter value" required>
+            </div>
+
+            <!-- Order ID -->
+            <div class="input-group">
+                <label for="orderID">Order ID:</label>
+                <input type="text" id="orderID" name="orderID" placeholder="Enter value">
+            </div>
+
+            <!-- Employee Name -->
+            <div class="input-group">
+                <label for="employeeName">Employee Name:</label>
+                <input type="text" id="employeeName" name="employeeName" placeholder="Enter value" required>
+            </div>
+
+            <!-- Employee Phone -->
+            <div class="input-group">
+                <label for="employeePhone">Employee Phone:</label>
+                <input type="text" id="employeePhone" name="employeePhone" placeholder="Enter value">
+            </div>
+
+            <!-- Employee Role -->
+            <div class="input-group">
+                <label for="employeeRole">Employee Role:</label>
+                <input type="text" id="employeeRole" name="employeeRole" placeholder="Enter value" required>
+            </div>
+
+            <!-- Employee Department -->
+            <div class="input-group">
+                <label for="employeeDepartment">Employee Department:</label>
+                <input type="text" id="employeeDepartment" name="employeeDepartment" placeholder="Enter value">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="input-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

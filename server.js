@@ -45,6 +45,7 @@ app.post('/login', (req, res) => {
 });
 
 
+
 //Insertions
 app.post('/submitOrder', (req, res) => {
     const { orderID, customerID, productID, orderDate, orderStatus, orderAddress } = req.body;
@@ -430,6 +431,113 @@ app.post('/updateSupplier', (req, res) => {
     });
 });
 
+app.post('/deleteCustomer', (req, res) => {
+    const { customerId } = req.body;
+
+    sql.connect(config, (err) => {
+        if (err) {
+            console.log('Failed to connect to SQL Server.', err);
+            res.status(500).send('Failed to connect to the database');
+        } else {
+            const request = new sql.Request();
+            // Delete data from the 'customers' table based on customerID
+            request.query(`
+                DELETE FROM customers WHERE customerID = ${customerId}
+            `, (err, result) => {
+                if (err) {
+                    console.log('Failed to execute SQL query.');
+                    console.log(err);
+                    res.status(500).send('Failed to execute SQL query');
+                } else {
+                    // Check the affected rows to confirm deletion
+                    const rowCount = result.rowsAffected[0];
+
+                    if (rowCount > 0) {
+                        res.send('Customer deleted successfully');
+                    } else {
+                        res.send('No customer found with the specified ID');
+                    }
+                }
+            });
+        }
+    });
+});
+
+//Deletions
+
+app.post('/deleteCustomer', (req, res) => {
+    const { customerID} = req.body;
+
+    sql.connect(config, (err) => {
+        if (err) {
+            console.log('Failed to connect to SQL Server.', err);
+            res.status(500).send('Failed to connect to the database');
+        } else {
+            const request = new sql.Request();
+            request.query(
+                `
+                DELETE FROM customer WHERE customerID= ${customerID};
+            `, (err, result) => {
+                if (err) {
+                    console.log('Failed to execute SQL query.');
+                    console.log(err);
+                    res.status(500).send('Failed to execute SQL query');
+                } else {
+                    res.send('Customer deleted successfully');
+                }
+            });
+        }
+    });
+});
+
+
+app.post('/deleteProduct', (req, res) => {
+    const { productID} = req.body;
+
+    sql.connect(config, (err) => {
+        if (err) {
+            console.log('Failed to connect to SQL Server.', err);
+            res.status(500).send('Failed to connect to the database');
+        } else {
+            const request = new sql.Request();
+            request.query(`
+                DELETE FROM products WHERE productID= ${productID};
+            `, (err, result) => {
+                if (err) {
+                    console.log('Failed to execute SQL query.');
+                    console.log(err);
+                    res.status(500).send('Failed to execute SQL query');
+                } else {
+                    res.send('Product deleted successfully');
+                }
+            });
+        }
+    });
+});
+
+app.post('/deleteOrder', (req, res) => {
+    const { orderID} = req.body;
+
+    sql.connect(config, (err) => {
+        if (err) {
+            console.log('Failed to connect to SQL Server.', err);
+            res.status(500).send('Failed to connect to the database');
+        } else {
+            const request = new sql.Request();
+            request.query(`
+                DELETE FROM orders WHERE orderID= ${orderID};
+            `, (err, result) => {
+                if (err) {
+                    console.log('Failed to execute SQL query.');
+                    console.log(err);
+                    res.status(500).send('Failed to execute SQL query');
+                } else {
+                    res.send('Order deleted successfully');
+                }
+            });
+        }
+    });
+});
 //ROUTES
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/login.html');
@@ -439,14 +547,6 @@ app.get('/success', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/success.html');
 });
 
-
-app.get('/updateEmployee', (req, res) => {
-    res.sendFile(__dirname + '/HTML Files/updateEmployee.html');
-})
-
-app.get('/updateOrders', (req, res) => {
-    res.sendFile(__dirname + '/HTML Files/updateOrders.html');
-})
 app.get('/addRecord', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/AddRecords.html');
 });
@@ -474,8 +574,6 @@ app.get('/suppliers', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/suppliers.html');
 });
 
-
-
 app.get('/employees', (req, res)=>{
     res.sendFile(__dirname + '/HTML Files/employees.html')
 })
@@ -484,7 +582,13 @@ app.get('/updateCustomer', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/updateCustomer.html');
 });
 
+app.get('/updateEmployee', (req, res) => {
+    res.sendFile(__dirname + '/HTML Files/updateEmployee.html');
+})
 
+app.get('/updateOrders', (req, res) => {
+    res.sendFile(__dirname + '/HTML Files/updateOrders.html');
+})
 app.get('/updateProduct', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/updateProduct.html');
 });
@@ -493,11 +597,27 @@ app.get('/updateSupplier', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/updateSupplier.html');
 });
 
+app.get('/deleteCustomer', (req, res) => {
+    res.sendFile(__dirname + '/HTML Files/deleteCustomer.html');
+});
+app.get('/deleteOrder', (req, res) => {
+    res.sendFile(__dirname + '/HTML Files/deleteOrder.html');
+});
+app.get('/deleteSupplier', (req, res) => {
+    res.sendFile(__dirname + '/HTML Files/deleteSupplier.html');
+});
+app.get('/deleteProduct', (req, res) => {
+    res.sendFile(__dirname + '/HTML Files/deleteProduct.html');
+});
+
+app.get('/deleteEmployee', (req, res) => {
+    res.sendFile(__dirname + '/HTML Files/deleteEmployee.html');
+});
+
 //Routes for CSS Files
 app.get('/LoginCSS', (req, res) => {
     res.sendFile(__dirname + '/CSS Files/login.css');
 });
-
 app.get('/EmployeeCSS', (req, res)=>{
     res.sendFile(__dirname + '/CSS Files/employees.css')
 })
@@ -539,6 +659,11 @@ app.get('/SuccessCSS', (req, res) => {
 app.get('/updateProductCSS', (req, res) => {
     res.sendFile(__dirname + '/CSS Files/updateProduct.css');
 });
+
+app.get('/deleteCustomerCSS', (req, res)=>{
+    res.sendFile(__dirname + '/CSS Files/deleteCustomer.css');
+})
+
 
 //Listen 
 app.listen(port, () => {

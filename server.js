@@ -431,6 +431,8 @@ app.post('/updateSupplier', (req, res) => {
     });
 });
 
+
+//Deletions
 app.post('/deleteCustomer', (req, res) => {
     const { customerId } = req.body;
 
@@ -442,7 +444,9 @@ app.post('/deleteCustomer', (req, res) => {
             const request = new sql.Request();
             // Delete data from the 'customers' table based on customerID
             request.query(`
-                DELETE FROM customers WHERE customerID = ${customerId}
+                DELETE FROM employee WHERE orderID= ${customerId};
+                DELETE FROM orders WHERE customerID=${customerId};
+                DELETE FROM customers WHERE customerID = ${customerId};
             `, (err, result) => {
                 if (err) {
                     console.log('Failed to execute SQL query.');
@@ -463,36 +467,9 @@ app.post('/deleteCustomer', (req, res) => {
     });
 });
 
-//Deletions
-
-app.post('/deleteCustomer', (req, res) => {
-    const { customerID} = req.body;
-
-    sql.connect(config, (err) => {
-        if (err) {
-            console.log('Failed to connect to SQL Server.', err);
-            res.status(500).send('Failed to connect to the database');
-        } else {
-            const request = new sql.Request();
-            request.query(
-                `
-                DELETE FROM customer WHERE customerID= ${customerID};
-            `, (err, result) => {
-                if (err) {
-                    console.log('Failed to execute SQL query.');
-                    console.log(err);
-                    res.status(500).send('Failed to execute SQL query');
-                } else {
-                    res.send('Customer deleted successfully');
-                }
-            });
-        }
-    });
-});
-
 
 app.post('/deleteProduct', (req, res) => {
-    const { productID} = req.body;
+    const { productID } = req.body;
 
     sql.connect(config, (err) => {
         if (err) {
@@ -501,7 +478,13 @@ app.post('/deleteProduct', (req, res) => {
         } else {
             const request = new sql.Request();
             request.query(`
-                DELETE FROM products WHERE productID= ${productID};
+                DELETE FROM orderDetails WHERE productID = ${productID};
+                DELETE FROM productSupplier WHERE productID = ${productID};
+                DELETE FROM orders WHERE productID = ${productID};
+                DELETE FROM employee WHERE orderID IN (SELECT orderID FROM orders WHERE productID = ${productID});
+                DELETE FROM supplier WHERE productID = ${productID};
+                DELETE FROM category WHERE productID = ${productID};
+                DELETE FROM products WHERE productID = ${productID};
             `, (err, result) => {
                 if (err) {
                     console.log('Failed to execute SQL query.');
@@ -515,6 +498,7 @@ app.post('/deleteProduct', (req, res) => {
     });
 });
 
+
 app.post('/deleteOrder', (req, res) => {
     const { orderID} = req.body;
 
@@ -525,6 +509,7 @@ app.post('/deleteOrder', (req, res) => {
         } else {
             const request = new sql.Request();
             request.query(`
+                DELETE FROM employee WHERE orderID=${orderID};
                 DELETE FROM orders WHERE orderID= ${orderID};
             `, (err, result) => {
                 if (err) {
@@ -538,6 +523,56 @@ app.post('/deleteOrder', (req, res) => {
         }
     });
 });
+
+
+app.post('/deleteEmployee', (req, res) => {
+    const { employeeID} = req.body;
+
+    sql.connect(config, (err) => {
+        if (err) {
+            console.log('Failed to connect to SQL Server.', err);
+            res.status(500).send('Failed to connect to the database');
+        } else {
+            const request = new sql.Request();
+            request.query(`
+                DELETE FROM employee WHERE employeeID=${employeeID};
+            `, (err, result) => {
+                if (err) {
+                    console.log('Failed to execute SQL query.');
+                    console.log(err);
+                    res.status(500).send('Failed to execute SQL query');
+                } else {
+                    res.send('Employee deleted successfully');
+                }
+            });
+        }
+    });
+});
+
+app.post('/deleteSupplier', (req, res) => {
+    const { supplierID} = req.body;
+
+    sql.connect(config, (err) => {
+        if (err) {
+            console.log('Failed to connect to SQL Server.', err);
+            res.status(500).send('Failed to connect to the database');
+        } else {
+            const request = new sql.Request();
+            request.query(`
+                DELETE FROM supplier WHERE supplierID=${supplierID};
+            `, (err, result) => {
+                if (err) {
+                    console.log('Failed to execute SQL query.');
+                    console.log(err);
+                    res.status(500).send('Failed to execute SQL query');
+                } else {
+                    res.send('Supplier deleted successfully');
+                }
+            });
+        }
+    });
+});
+
 //ROUTES
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/HTML Files/login.html');

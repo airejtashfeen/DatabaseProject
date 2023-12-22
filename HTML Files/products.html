@@ -6,14 +6,19 @@
     <title>Products</title>
     <link rel="stylesheet" href="/ProductsCSS">
 
+    <style>
+        .input-group select {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Enter a Product</h1>
 
     <div class="container">
         <!-- Form Element -->
-        <form action="/submitProduct" method="post">
-            <!-- Input Fields -->
+        <form action="/submitProduct" method="post" >
+       <!-- Input Fields -->
             <div class="input-group">
                 <label for="productID">Product ID:</label>
                 <input type="text" id="productID" name="productID" placeholder="Enter value" required>
@@ -42,7 +47,19 @@
                 <label for="productPrice">Product Price:</label>
                 <input type="number" id="productPrice" name="productPrice" placeholder="Enter value" required>
             </div>
-            
+
+            <!-- Discount Dropdown -->
+            <div class="input-group">
+                <label for="discount">Discount:</label>
+                <select id="discount" name="discount" onchange="updatePrice()">
+                <option value="0">No Discount</option>
+                    <option value="0.1">10%</option>
+                    <option value="0.2">20%</option>
+                    <option value="0.3">30%</option>
+                    <option value="0.4">40%</option>
+                    <option value="0.5">50%</option>
+                </select>
+            </div>
             
             <!-- Submit Button -->
             <div class="input-group">
@@ -51,4 +68,14 @@
         </form>
     </div>
 </body>
+<script>
+    function updatePrice() {
+    const productPrice = parseFloat(document.getElementById("productPrice").value);
+    const discount = parseFloat(document.getElementById("discount").value);
+
+    const discountedPrice = productPrice - (productPrice * discount);
+
+    document.getElementById("productPrice").value = discountedPrice; // Update the displayed price
+}
+</script>
 </html>
